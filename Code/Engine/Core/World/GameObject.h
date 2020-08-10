@@ -368,6 +368,10 @@ public:
   /// \brief Returns a list of all components attached to this object.
   ezArrayPtr<const ezComponent* const> GetComponents() const;
 
+  /// \brief Returns the current version of components attached to this object.
+  /// This version is increased whenever components are added or removed and can be used for cache validation.
+  ezUInt16 GetComponentVersion() const { return m_uiComponentVersion; }
+
 
   /// \brief Sends a message to all components of this object.
   bool SendMessage(ezMessage& msg);
@@ -552,6 +556,7 @@ private:
 
   /// \todo small array class to reduce memory overhead
   ezHybridArray<ezComponent*, NUM_INPLACE_COMPONENTS> m_Components;
+  ezUInt16 m_uiComponentVersion = 0;
 
 #if EZ_ENABLED(EZ_PLATFORM_32BIT)
   ezUInt64 m_uiPadding2 = 0;
